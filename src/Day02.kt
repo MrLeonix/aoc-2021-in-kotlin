@@ -25,7 +25,7 @@ fun main() {
     fun part1(input: List<String>): Int {
         val submarine = Submarine()
 
-        input.forEachIndexed { i, command ->
+        input.forEach { command ->
             val commandSplit = command.split(" ")
             submarine.executePart1Command(commandSplit[0], commandSplit[1].toInt())
         }
@@ -36,7 +36,7 @@ fun main() {
     fun part2(input: List<String>): Int {
         val submarine = Submarine()
 
-        input.forEachIndexed { i, command ->
+        input.forEach { command ->
             val commandSplit = command.split(" ")
             submarine.executePart2Command(commandSplit[0], commandSplit[1].toInt())
         }
