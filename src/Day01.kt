@@ -23,15 +23,6 @@ fun main() {
             if (i != 0 && intVal > input[i - 1].toInt()) {
                 incrementalCount++
             }
-
-            /*if (i == 0) {
-                println("$intVal (N/A - no previous measurement)")
-            } else if (intVal > input[i - 1].toInt()) {
-                incrementalCount++
-                println("$intVal (increased) ($incrementalCount)")
-            } else {
-                println("$intVal (decreased)")
-            }*/
         }
 
         println("Incremental count: $incrementalCount | Sum incremental count: $sumIncrementalCount.")
