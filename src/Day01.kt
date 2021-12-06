@@ -1,47 +1,43 @@
 fun main() {
-    fun analyseInput(input: List<String>) {
+    fun part1(input: List<String>): Int {
         var incrementalCount = 0
+
+        input.forEachIndexed { i, measurement ->
+            if (i != 0 && measurement.toInt() > input[i - 1].toInt()) {
+                incrementalCount++
+            }
+        }
+
+        return incrementalCount
+    }
+
+    fun part2(input: List<String>): Int {
         var sumIncrementalCount = 0
         val sumOfThree = mutableListOf<Int>()
 
-        input.forEachIndexed { i, measurement ->
+        input.forEach { measurement ->
             val intVal = measurement.toInt()
             var previousSum: Int = Int.MAX_VALUE
 
             if (sumOfThree.size >= 3) {
                 previousSum = sumOfThree.sum()
-                print("$previousSum $sumOfThree (<- $measurement) | ")
                 sumOfThree.removeFirst()
             }
             sumOfThree.add(intVal)
             if (sumOfThree.sum() > previousSum) {
                 sumIncrementalCount++
-                println("${sumOfThree.sum()} $sumOfThree ($sumIncrementalCount)")
-            } else
-            println("${sumOfThree.sum()} $sumOfThree")
-
-            if (i != 0 && intVal > input[i - 1].toInt()) {
-                incrementalCount++
             }
         }
 
-        println("Incremental count: $incrementalCount | Sum incremental count: $sumIncrementalCount.")
-    }
-
-    fun part1(input: List<String>): Int {
-        analyseInput(input)
-        return input.size
-    }
-
-    fun part2(input: List<String>): Int {
-        analyseInput(input)
-        return input.size
+        return sumIncrementalCount
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day01_test")
-    check(part1(testInput) == 10)
+    check(part1(testInput) == 7)
+    check(part2(testInput) == 5)
 
     val input = readInput("Day01")
-    part2(input)
+    println("Part 1: ${part1(input)}")
+    println("Part 2: ${part2(input)}")
 }

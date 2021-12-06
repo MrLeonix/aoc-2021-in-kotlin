@@ -1,5 +1,14 @@
 class Submarine(var depth: Int = 0, var horizontalAxis: Int = 0, var aim: Int = 0) {
-    fun executeCommand(command: String, value: Int) {
+    fun executePart1Command(command: String, value: Int) {
+        when (command) {
+            "up" -> depth = depth.minus(value)
+            "down" -> depth = depth.plus(value)
+            "forward" -> horizontalAxis = horizontalAxis.plus(value)
+            else -> println("Invalid command '$command'.")
+        }
+    }
+
+    fun executePart2Command(command: String, value: Int) {
         when (command) {
             "up" -> aim = aim.minus(value)
             "down" -> aim = aim.plus(value)
@@ -13,34 +22,34 @@ class Submarine(var depth: Int = 0, var horizontalAxis: Int = 0, var aim: Int = 
 }
 
 fun main() {
-    fun analyseInput(input: List<String>) {
+    fun part1(input: List<String>): Int {
         val submarine = Submarine()
 
         input.forEachIndexed { i, command ->
             val commandSplit = command.split(" ")
-            submarine.executeCommand(commandSplit[0], commandSplit[1].toInt())
+            submarine.executePart1Command(commandSplit[0], commandSplit[1].toInt())
         }
 
-        println(
-            "Depth: ${submarine.depth} | Horizontal axis: ${submarine.horizontalAxis}. " +
-                    "Multiplied: ${submarine.depth * submarine.horizontalAxis}"
-        )
-    }
-
-    fun part1(input: List<String>): Int {
-        analyseInput(input)
-        return input.size
+        return submarine.horizontalAxis * submarine.depth
     }
 
     fun part2(input: List<String>): Int {
-        analyseInput(input)
-        return input.size
+        val submarine = Submarine()
+
+        input.forEachIndexed { i, command ->
+            val commandSplit = command.split(" ")
+            submarine.executePart2Command(commandSplit[0], commandSplit[1].toInt())
+        }
+
+        return submarine.horizontalAxis * submarine.depth
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day02_test")
-    check(part1(testInput) == 6)
+    check(part1(testInput) == 150)
+    check(part2(testInput) == 900)
 
     val input = readInput("Day02")
-    part2(input)
+    println("Part 1: ${part1(input)}")
+    println("Part 2: ${part2(input)}")
 }
